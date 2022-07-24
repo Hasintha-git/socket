@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket Works</title>
+
+    <style>
+        .body {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            flex-direction: column;
+            background: -moz-radial-gradient(circle at 3% 25%, rgba(0, 40, 83, 1) 0%, rgba(4, 12, 24, 1) 25%);
+            background: -webkit-radial-gradient(circle at 3% 25%, rgba(0, 40, 83, 1) 0%, rgba(4, 12, 24, 1) 25%);
+            background: -o-radial-gradient(circle at 3% 25%, rgba(0, 40, 83, 1) 0%, rgba(4, 12, 24, 1) 25%);
+            background: -ms-radial-gradient(circle at 3% 25%, rgba(0, 40, 83, 1) 0%, rgba(4, 12, 24, 1) 25%);
+            background: radial-gradient(circle at 3% 25%, rgba(0, 40, 83, 1) 0%, rgba(4, 12, 24, 1) 25%);
+
+        }
+
+        .div_box {
+            width: 400px;
+            height: 450px;
+            box-shadow: rgba(160, 0, 0, 0.2) 0px 7px 29px 0px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: white;
+        }
+
+        .btnStart {
+            width: 200px;
+            height: 33px;
+            background-color: royalblue;
+            border: none;
+            border-radius: 30px;
+            color: white;
+            margin-top: 50px;
+        }
+
+        .btnEnd {
+            width: 200px;
+            height: 33px;
+            background-color: red;
+            border: none;
+            border-radius: 30px;
+            color: white;
+            margin-top: 50px;
+        }
+
+        .btnStart:hover {
+            box-shadow: rgba(112, 111, 111, 0.2) 0px 7px 29px 0px;
+        }
+
+        .btnEnd:hover {
+            box-shadow: rgba(112, 111, 111, 0.2) 0px 7px 29px 0px;
+        }
+    </style>
+</head>
+
+<body class="body">
+    <div class="div_box">
+        <h1 id="responseMsg">Hello</h1>
+        <button class="btnStart" onclick="socketStart()">Socket on</button>
+        <button class="btnEnd" onclick="socketEnd()">Socket shut down</button>
+    </div>
+
+    <script>
+        document.getElementById("responseMsg").innerHTML = "Socket Stoped";
+        const response = "Socket is Shuw down now"
+        let ws;
+
+        function socketStart() {
+            document.getElementById("responseMsg").innerHTML = "Socket is proccessing...";
+            ws = new WebSocket('ws://localhost:8082');
+            ws.addEventListener('message', e => {
+                console.log(e)
+                document.getElementById("responseMsg").innerHTML = e.data;
+            });
+        }
+
+        function socketEnd() {
+            ws.close()
+            document.getElementById("responseMsg").innerHTML = "Socket Closed";
+        }
+    </script>
+</body>
+
+</html>
+
+<!-- start index.html >>>>> run this command in >> G:\Project\Socket (project main directry) -->
